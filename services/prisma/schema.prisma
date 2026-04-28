@@ -33,8 +33,6 @@ model Feature {
   updatedAt   DateTime @updatedAt
 
   clients ClientFeature[]
-
-  @@map("features")
 }
 
 model ClientFeature {
