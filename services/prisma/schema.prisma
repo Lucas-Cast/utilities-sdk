@@ -15,7 +15,6 @@ datasource db {
 model Client {
   id        String   @id @default(uuid())
   name      String   @unique
-  clientId  String   @unique @default(uuid())
   secret    String
   isActive  Boolean  @default(true)
   createdAt DateTime @default(now())
