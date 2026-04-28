@@ -1,10 +1,9 @@
-import { Module } from '@nestjs/common';
-import { CredentialsServiceController } from './credentials-service.controller';
-import { CredentialsServiceService } from './credentials-service.service';
+import { Module } from '@nestjs/common'
+import { PrismaModule } from '@app/database'
 
 @Module({
-  imports: [],
-  controllers: [CredentialsServiceController],
-  providers: [CredentialsServiceService],
+  imports: [PrismaModule],
+  controllers: [],
+  providers: [],
 })
 export class CredentialsServiceModule {}
