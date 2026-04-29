@@ -2,6 +2,7 @@ import 'dotenv/config'
 
 export const environment = {
   DATABASE_URL: process.env.DATABASE_URL || '',
-  PORT: process.env.PORT || 8000,
+  PORT: process.env.PORT || 8080,
   BCRYPT_SALT_ROUNDS: Number(process.env.BCRYPT_SALT_ROUNDS) || 10,
+  MASTER_PASSWORD: process.env.MASTER_PASSWORD || '',
 }

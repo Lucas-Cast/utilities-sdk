@@ -1,0 +1,32 @@
+services:
+  db:
+    image: postgres:17
+    env_file:
+      - services/.env.docker
+    ports:
+      - "5437:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - utilities-sdk-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+  gateway:
+    build: ./services
+    env_file:
+      - services/.env.docker
+    ports:
+      - "8001:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - utilities-sdk-network
+volumes:
+  db_data:
+networks:
+  utilities-sdk-network:
+    driver: bridge

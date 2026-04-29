@@ -10,7 +10,7 @@ async function bootstrap() {
 
   setupSwagger(app)
 
-  await app.listen(environment.PORT)
+  await app.listen(environment.PORT, '0.0.0.0')
 
   const url = await app.getUrl()
   logger.log(`Application running on ${url}`)
