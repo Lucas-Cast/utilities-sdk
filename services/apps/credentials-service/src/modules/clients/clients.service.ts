@@ -1,4 +1,10 @@
-import { ConflictException, Injectable, NotFoundException } from '@nestjs/common'
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common'
+import { JwtService } from '@nestjs/jwt'
 import * as bcrypt from 'bcrypt'
 import { environment } from 'libs/config/environment'
 import { ClientsRepository } from './clients.repository'
@@ -7,7 +13,10 @@ import { UpdateClientDto } from './dto/update-client.dto'
 
 @Injectable()
 export class ClientsService {
-  constructor(private readonly clientsRepository: ClientsRepository) {}
+  constructor(
+    private readonly clientsRepository: ClientsRepository,
+    private readonly jwtService: JwtService,
+  ) {}
 
   async create(dto: CreateClientDto) {
     await this.validateUniqueName(dto.name)
@@ -54,6 +63,21 @@ export class ClientsService {
   async remove(id: string) {
     await this.findOne(id)
     return this.clientsRepository.delete(id)
+  }
+
+  async authenticate(name: string, secret: string) {
+    const client = await this.clientsRepository.findByNameWithFeatures(name)
+    if (!client) throw new UnauthorizedException('Invalid credentials')
+    if (!client?.isActive) throw new UnauthorizedException('Client is inactive')
+
+    const isValidSecret = await bcrypt.compare(secret, client.secret)
+    if (!isValidSecret) throw new UnauthorizedException('Invalid credentials')
+
+    const features = client.features.map((cf) => cf.feature.name)
+
+    const payload = { sub: client.id, name: client.name, features }
+
+    return { accessToken: this.jwtService.sign(payload) }
   }
 
   private async validateUniqueName(name?: string, excludeId?: string) {

@@ -30,6 +30,13 @@ export class ClientsRepository {
     return this.prisma.client.findUnique({ where: { name } })
   }
 
+  async findByNameWithFeatures(name: string) {
+    return this.prisma.client.findUnique({
+      where: { name },
+      include: { features: { include: { feature: true } } },
+    })
+  }
+
   async findByNameExcludingId(name: string, id: string) {
     return this.prisma.client.findFirst({
       where: { name, NOT: { id } },

@@ -2,12 +2,19 @@ import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common'
 import { ApiOperation, ApiTags } from '@nestjs/swagger'
 import { ClientsService } from './clients.service'
 import { CreateClientDto } from './dto/create-client.dto'
+import { LoginDto } from './dto/login.dto'
 import { UpdateClientDto } from './dto/update-client.dto'
 
 @ApiTags('Clients')
 @Controller('clients')
 export class ClientsController {
   constructor(private readonly clientsService: ClientsService) {}
+
+  @Post('auth')
+  @ApiOperation({ summary: 'Authenticate client and get JWT token' })
+  login(@Body() dto: LoginDto) {
+    return this.clientsService.authenticate(dto.name, dto.secret)
+  }
 
   @Post()
   @ApiOperation({ summary: 'Create a new client' })
