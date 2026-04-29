@@ -30,11 +30,11 @@
     },
     "database": {
       "type": "library",
-      "root": "libs/database",
+      "root": "libs/modules/database",
       "entryFile": "index",
-      "sourceRoot": "libs/database/src",
+      "sourceRoot": "libs/modules/database/src",
       "compilerOptions": {
-        "tsConfigPath": "libs/database/tsconfig.lib.json"
+        "tsConfigPath": "libs/modules/database/tsconfig.lib.json"
       }
     },
     "gateway": {
@@ -44,15 +44,6 @@
       "sourceRoot": "apps/gateway/src",
       "compilerOptions": {
         "tsConfigPath": "apps/gateway/tsconfig.app.json"
-      }
-    },
-    "user-service": {
-      "type": "application",
-      "root": "apps/user-service",
-      "entryFile": "main",
-      "sourceRoot": "apps/user-service/src",
-      "compilerOptions": {
-        "tsConfigPath": "apps/user-service/tsconfig.app.json"
       }
     }
   }

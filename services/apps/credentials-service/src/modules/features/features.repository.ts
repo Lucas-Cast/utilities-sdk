@@ -1,5 +1,5 @@
-import { PrismaService } from '@app/database'
 import { Injectable } from '@nestjs/common'
+import { PrismaService } from 'libs/modules/database'
 import { CreateFeatureDto } from './dto/create-feature.dto'
 import { UpdateFeatureDto } from './dto/update-feature.dto'
 
