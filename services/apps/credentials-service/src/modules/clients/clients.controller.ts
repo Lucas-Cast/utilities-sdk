@@ -1,15 +1,21 @@
+import { Public } from '@lib/modules/auth/decorators/public.decorator'
+import { RequireFeature } from '@lib/modules/auth/decorators/require-feature.decorator'
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common'
-import { ApiOperation, ApiTags } from '@nestjs/swagger'
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger'
+import { FeatureEnum } from 'libs/enums/feature-enum'
 import { ClientsService } from './clients.service'
 import { CreateClientDto } from './dto/create-client.dto'
 import { LoginDto } from './dto/login.dto'
 import { UpdateClientDto } from './dto/update-client.dto'
 
+@ApiBearerAuth()
 @ApiTags('Clients')
 @Controller('clients')
+@RequireFeature(FeatureEnum.CREDENTIALS_SERVICE)
 export class ClientsController {
   constructor(private readonly clientsService: ClientsService) {}
 
+  @Public()
   @Post('auth')
   @ApiOperation({ summary: 'Authenticate client and get JWT token' })
   login(@Body() dto: LoginDto) {

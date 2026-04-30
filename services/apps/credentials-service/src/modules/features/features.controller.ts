@@ -1,11 +1,15 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common'
-import { ApiOperation, ApiTags } from '@nestjs/swagger'
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger'
+import { FeatureEnum } from 'libs/enums/feature-enum'
+import { RequireFeature } from 'libs/modules/auth/decorators/require-feature.decorator'
 import { CreateFeatureDto } from './dto/create-feature.dto'
 import { UpdateFeatureDto } from './dto/update-feature.dto'
 import { FeaturesService } from './features.service'
 
+@ApiBearerAuth()
 @ApiTags('Features')
 @Controller('features')
+@RequireFeature(FeatureEnum.CREDENTIALS_SERVICE)
 export class FeaturesController {
   constructor(private readonly featuresService: FeaturesService) {}
 
