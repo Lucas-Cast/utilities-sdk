@@ -1,6 +1,7 @@
 import { CredentialsServiceModule } from '@app/credentials/credentials-service.module'
 import { INestApplication, Type } from '@nestjs/common'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
+import { NotificationsServiceModule } from 'apps/notifications-service/src/notifications.module'
 
 interface SwaggerDocConfig {
   title: string
@@ -18,13 +19,13 @@ const services: SwaggerDocConfig[] = [
     path: 'credentials',
     include: [CredentialsServiceModule],
   },
-  // {
-  //   title: 'Scheduler Service',
-  //   description: 'Task scheduling management',
-  //   version: '1.0',
-  //   path: 'scheduler',
-  //   include: [SchedulerModule],
-  // },
+  {
+    title: 'Notifications Service',
+    description: 'Notification management',
+    version: '1.0',
+    path: 'notifications',
+    include: [NotificationsServiceModule],
+  },
 ]
 
 export function setupSwagger(app: INestApplication) {

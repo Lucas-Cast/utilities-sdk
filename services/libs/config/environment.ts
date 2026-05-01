@@ -7,4 +7,5 @@ export const environment = {
   MASTER_PASSWORD: process.env.MASTER_PASSWORD || '',
   JWT_SECRET: process.env.JWT_SECRET || 'change-me',
   JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN || '1h',
+  NOTIFICATIONS_API_URL: process.env.NOTIFICATIONS_API_URL || '',
 }

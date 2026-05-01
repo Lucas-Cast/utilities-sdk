@@ -18,9 +18,15 @@
     "strictBindCallApply": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@lib/modules/*": ["libs/modules/*"],
-      "@app/credentials": ["apps/credentials-service/src"],
-      "@app/credentials/*": ["apps/credentials-service/src/*"]
+      "@app/credentials": [
+        "apps/credentials-service/src"
+      ],
+      "@app/credentials/*": [
+        "apps/credentials-service/src/*"
+      ],
+      "@lib/modules/*": [
+        "libs/modules/*"
+      ]
     }
   }
 }
